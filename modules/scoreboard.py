@@ -9,8 +9,8 @@ import os
 import re
 
 
-# initialize points list
-points = []
+# initialize points dictionary
+points = {}
 
 
 # load points[] from file
@@ -31,16 +31,37 @@ def save_json():
 		#points.sort(key=lambda x: x.lower())
 		json.dump(points, f, indent=4)
 
+# add/subtract points from a nick
+def add_points(nick, new_points):
+	load_json()
+
+	if nick not in points:
+		points[nick] = 0
+
+	points[nick] += new_points
+	
+	save_json()
+
+	return points[nick]
 
 def scoreboard(phenny, input):
-	p = re.compile('(\S)+\s*([\+-][\+-=])\s*((\d+)|())')
+	p = re.compile('(\S+)\s*([\+-][\+-=])\s*((\d+)|())')
 	m = p.match(input.group(0))
 	if m:
-		print 'match found'
+		who = m.groups()[0]
+		symbol = m.groups()[1]
+		ammount = int(m.groups()[2])
+		
+		#TODO OVER 9000?!?!?
 
-	
-	phenny.say(input.nick + " gives somes points ftw")
-	phenny.say(input.group(0))
+		if(symbol == "++"):
+			phenny.say(who + ' gets a point for a total of ' + str(add_points(who, 1)))
+		elif(symbol == "--"):
+			phenny.say(who + ' loses a point for a total of '+ str(add_points(who, -1)))
+		elif(symbol == "+="):
+			phenny.say(who + ' gets ' + str(ammount) + ' poitns for a total of ' + str(add_points(who, ammount)))
+		elif(symbol == "-="):
+			phenny.say(who + ' loses ' + str(ammount) + ' points for a total of ' + str(add_points(who, (ammount * -1))))
 
 # TODO move the whole regexp here
 scoreboard.rule = r'.*\w+\s*[\+-][\+-=].*'
