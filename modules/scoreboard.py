@@ -50,7 +50,11 @@ def scoreboard(phenny, input):
 	if m:
 		who = m.groups()[0]
 		symbol = m.groups()[1]
-		ammount = int(m.groups()[2])
+		ammount_s = m.groups()[2]
+		if ammount_s:
+			ammount = int(ammount_s)
+		else:
+			ammount = 0
 		
 		#TODO OVER 9000?!?!?
 
