@@ -51,10 +51,30 @@ def ops_add(phenny, input):
 		newop = input.group(2).lower().split()[0]
 		ops.append(newop)
 		save_json()
+		phenny.write(['MODE', input, "+o",  newop])
 		phenny.say('Added ' + newop + ' to the operators list')
 
 ops_add.commands = ['addops']
 ops_add.priority = 'medium'
+
+
+# list for .delops and delete operators from the list
+def ops_del(phenny, input):
+	load_json()
+	# make sure a current op is doing this
+	if input.nick in ops:
+		oldop = input.group(2).lower().split()[0]
+		# make sure op is in list
+		if oldop in ops:	
+			ops.remove(oldop)
+			save_json()
+			phenny.write(['MODE', input, "-o",  oldop])
+			phenny.say('Deleted ' + oldop + ' from the operators list')
+		else:
+			phenny.say(oldop + ' was not on the operators list')
+
+ops_del.commands=['delops']
+ops_del.priority= 'medium'
 
 
 # listen for .listops and list all of the operators
@@ -68,21 +88,4 @@ def ops_list(phenny, input):
 ops_list.commands = ['listops']
 ops_list.priority = 'medium'
 
-
-# list for .delops and delete operators from the list
-def ops_del(phenny, input):
-	load_json()
-	# make sure a current op is doing this
-	if input.nick in ops:
-		oldop = input.group(2).lower().split()[0]
-		# make sure op is in list
-		if oldop in ops:	
-			ops.remove(oldop)
-			save_json()
-			phenny.say('Deleted ' + oldop + ' from the operators list')
-		else:
-			phenny.say(oldop + ' was not on the operators list')
-
-ops_del.commands=['delops']
-ops_del.priority= 'medium'
 
