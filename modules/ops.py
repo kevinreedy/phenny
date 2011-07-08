@@ -51,7 +51,7 @@ def ops_add(phenny, input):
 		newop = input.group(2).lower().split()[0]
 		ops.append(newop)
 		save_json()
-		phenny.write(['MODE', input, "+o",  newop])
+		phenny.write(['MODE', input.sender, "+o",  newop])
 		phenny.say('Added ' + newop + ' to the operators list')
 
 ops_add.commands = ['addops']
@@ -68,7 +68,7 @@ def ops_del(phenny, input):
 		if oldop in ops:	
 			ops.remove(oldop)
 			save_json()
-			phenny.write(['MODE', input, "-o",  oldop])
+			phenny.write(['MODE', input.sender, "-o",  oldop])
 			phenny.say('Deleted ' + oldop + ' from the operators list')
 		else:
 			phenny.say(oldop + ' was not on the operators list')
