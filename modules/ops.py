@@ -34,7 +34,6 @@ def save_json():
 def ops_join(phenny, input):
 	load_json()
 	if input.nick in ops:
-		phenny.say('giving ops to ' + input.nick)
 		phenny.write(['MODE', input, "+o",  input.nick])
 
 ops_join.event = 'JOIN'
