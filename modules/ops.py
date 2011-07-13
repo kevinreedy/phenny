@@ -33,7 +33,7 @@ def save_json():
 # when a user joins, see give them ops if they are in the list of operators
 def ops_join(phenny, input):
 	load_json()
-	if input.nick in ops:
+	if input.nick.lower() in ops:
 		phenny.write(['MODE', input, "+o",  input.nick])
 
 ops_join.event = 'JOIN'
