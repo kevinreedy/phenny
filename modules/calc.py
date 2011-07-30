@@ -92,10 +92,13 @@ c.commands = ['c']
 c.example = '.c 5 + 3'
 
 def py(phenny, input): 
+   max_response_len = 80  # phenny dies if it tries to return too much data.
    query = input.group(2).encode('utf-8')
    uri = 'http://tumbolia.appspot.com/py/'
    answer = web.get(uri + web.urllib.quote(query))
-   if answer: 
+   if answer:
+      if len(answer) > max_response_len:
+         answer = answer[:max_response_len] + ' ... (truncated)'
       phenny.say(answer)
    else: phenny.reply('Sorry, no result.')
 py.commands = ['py']
