@@ -17,7 +17,7 @@ def klout_check(phenny, input):
                 result = json.loads(klout_json)
                 if(result['users']):
                     for user in result['users']:
-                        phenny.say(user['twitter_screen_name'] + "'s Klout Score is " + str()
+                        phenny.say(user['twitter_screen_name'] + "'s Klout Score is " + str(user['kscore']))
             else:
                 # TODO: Need to actually error check for bad JSON
                 phenny.say("Didn't find any user named " + klout_users)
