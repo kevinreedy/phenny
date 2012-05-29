@@ -15,12 +15,14 @@ def klout_check(phenny, input):
             klout_json = urllib.urlopen('http://api.klout.com/1/klout.json?key=' + phenny.config.klout_key + '&users=' + klout_users).read()
             if(klout_json):
                 result = json.loads(klout_json)
-                if(result['users']):
+                if('users' in result):
                     for user in result['users']:
                         phenny.say(user['twitter_screen_name'] + "'s Klout Score is " + str(user['kscore']))
+		else:
+			phenny.say('User %s not found' % (klout_users,))
             else:
                 # TODO: Need to actually error check for bad JSON
-                phenny.say("Didn't find any user named " + klout_users)
+                phenny.say('User %s not found' % (klout_users,))
     else:
         phenny.say("Klout API Key missing")
 
