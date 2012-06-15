@@ -76,7 +76,7 @@ def titleauto (phenny, input):
       text=text+"..."
    text = unescape(text)
    phenny.reply(text)
-titleauto.rule = r'(^http:\/\/)(tinyurl.com/|bit.ly/|open.spotify|ln-s.net|youtube.com|www.youtube.com)([\>:A-Za-z0-9 ,./-?]*)'
+titleauto.rule = r'.*(http:\/\/)(tinyurl.com/|bit.ly/|open.spotify|ln-s.net|youtube.com|www.youtube.com)([\>:A-Za-z0-9 ,./-?]*)'
 
 
 if __name__ == '__main__': 
